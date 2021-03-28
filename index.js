@@ -19,6 +19,8 @@ function sleep(milliseconds) {
     let browser = await puppeteer.launch({headless:false});
     let page = await browser.newPage();
     await page.goto(login, {waitUntil : 'networkidle2'});
+    // await page.authenticate({"username":"utubescraper@gmail.com", "password":"bypassinggoogle"})
+    //identifierId
     await page.type("#identifierId","utubescraper@gmail.com");
     await page.click("button[jscontroller='soHxf']");
     // await page.goto(password, {waitUntil : 'networkidle2'});
@@ -28,7 +30,7 @@ function sleep(milliseconds) {
     sleep(4000);
     await page.goto(url, {waitUntil : 'networkidle2'});
     sleep(5000);
-    await page.click("#button");
+    await page.click("ytd-button-renderer[3]");
     // let token = await ac.solveRecaptchaV2Proxyless("https://www.youtube.com/c/mkbhd/about" , "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog")
     // .then(response => console.log("right"))
     // .catch(error => console.log("wrong"));
