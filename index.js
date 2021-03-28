@@ -19,8 +19,6 @@ function sleep(milliseconds) {
     let browser = await puppeteer.launch({headless:false});
     let page = await browser.newPage();
     await page.goto(login, {waitUntil : 'networkidle2'});
-    // await page.authenticate({"username":"shubhamram2k@gmail.com", "password":"....sonu shubham sr ram...."})
-    //identifierId
     await page.type("#identifierId","utubescraper@gmail.com");
     await page.click("button[jscontroller='soHxf']");
     // await page.goto(password, {waitUntil : 'networkidle2'});
