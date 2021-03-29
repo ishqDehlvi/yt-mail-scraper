@@ -10,34 +10,38 @@ function sleep(milliseconds) {
       currentDate = Date.now();
     } while (currentDate - date < milliseconds);
   }
+// }
 (async () =>{
-    // if(!token){
-    //     console.log("wrong");
-    // }
     let url = "https://www.youtube.com/c/mkbhd/about";
     let login = "https://accounts.google.com/signin/v2/identifier?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252F&hl=en&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
     let browser = await puppeteer.launch({headless:false});
     let page = await browser.newPage();
     await page.goto(login, {waitUntil : 'networkidle2'});
-    // await page.authenticate({"username":"utubescraper@gmail.com", "password":"bypassinggoogle"})
     //identifierId
     await page.type("#identifierId","utubescraper@gmail.com");
     await page.click("button[jscontroller='soHxf']");
-    // await page.goto(password, {waitUntil : 'networkidle2'});
-    sleep(2000);
+    sleep(3000);
     await page.type("input[jsname='YPqjbf']","bypassinggoogle")
     await page.click("button[jscontroller='soHxf']");
-    sleep(4000);
+    sleep(6000);
     await page.goto(url, {waitUntil : 'networkidle2'});
+    await page.waitForNavigation({waitUntil:"domcontentloaded"});
     sleep(5000);
-    await page.click("ytd-button-renderer[3]");
-    // let token = await ac.solveRecaptchaV2Proxyless("https://www.youtube.com/c/mkbhd/about" , "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog")
-    // .then(response => console.log("right"))
-    // .catch(error => console.log("wrong"));
-    // let data = await page.evaluate(()=>{
-    //     let email = document.querySelector('a[id="email"]').innerText ;
-    //     return {email}
-    // });
-    // console.log(data);
+    await page.evaluate (()=>{
+      var element = document.querySelectorAll("ytd-button-renderer")[4];
+      //element.classList.add("ishq");
+    })
+    sleep(5000);
+    //await page.click('.ishq');
+    sleep(4000);
+    let token = await ac.solveRecaptchaV2Proxyless("https://www.youtube.com/c/mkbhd/about" , "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog")
+    .then(response => console.log("right"))
+    .catch(error => console.log("wrong"));
+    sleep(4000);
+    let data = await page.evaluate(()=>{
+        let email = document.querySelector('a[id="email"]').innerText ;
+        return {email}
+    });
+    console.log(data);
     // await browser.close()
 })();
