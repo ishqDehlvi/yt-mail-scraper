@@ -34,15 +34,15 @@ function sleep(milliseconds) {
     await page.click('.ishq');
     await page.waitForSelector(".ishq")
     sleep(4000);
-    // let token = await ac.solveRecaptchaV2Proxyless("https://www.youtube.com/c/mkbhd/about" , "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog")
-    // .then(response => console.log("right"))
-    // .catch(error => console.log("wrong"));
-    // sleep(4000);
+     let token = await ac.solveRecaptchaV2Proxyless("https://www.youtube.com/c/mkbhd/about" , "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog")
+     .then(response => console.log("right"))
+     .catch(error => console.log("wrong"));
+     //sleep(4000);
     // let data = await page.evaluate(()=>{
     //     let email = document.querySelector('a[id="email"]').innerText ;
     //     return {email}
     // });
-    console.log(data);
-    console.log('WORKING');
+   // console.log(data);
+   // console.log('WORKING');
     // await browser.close()
 })();
