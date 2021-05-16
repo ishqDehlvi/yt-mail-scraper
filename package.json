@@ -9,10 +9,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "2captcha-node": "^2.2.1",
     "@antiadmin/anticaptchaofficial": "^1.0.14",
+    "@infosimples/node_two_captcha": "github:infosimples/node_two_captcha",
+    "anticaptcha": "^2.0.3",
     "async": "^3.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
     "puppeteer": "^8.0.0",
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-stealth": "^2.7.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
