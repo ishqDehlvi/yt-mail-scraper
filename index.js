@@ -1,11 +1,15 @@
-/* tslint:disable:no-unused-variable */
-
 // const puppeteer = require("puppeteer");
-const ac = require("@antiadmin/anticaptchaofficial");
+const Client = require("@infosimples/node_two_captcha");
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
-ac.setAPIKey('ef8d38af04f7e3837bc660fa4de91820');
+
+client = new Client("fc71d7499bc9d863b2b09f830730181d", {
+  timeout: 60000,
+  polling: 5000,
+  throwErrors: false,
+});
+
 function sleep(milliseconds) {
   const date = Date.now();
   let currentDate = null;
@@ -18,16 +22,14 @@ function sleep(milliseconds) {
   // for(var i=0; i<channel.length; i++){
     // let url = "https://www.youtube.com/c/"+channel[i]+"/about";
   // // let joinChannel = ["mkbhd"];
-    let login =
-    "https://accounts.google.com/signin/v2/identifier?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252F&hl=en&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
+  let login ="https://accounts.google.com/signin/v2/identifier?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252F&hl=en&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
   let browser = await puppeteer.launch({ headless: false });
   let page = await browser.newPage();
   await page.goto(login, { waitUntil: "networkidle2" });
-  //identifierId
-  await page.type("#identifierId", EmailID);
+  await page.type("#identifierId","mail");
   await page.click("button[jscontroller='soHxf']");
   sleep(3000);
-  await page.type("input[jsname='YPqjbf']",Password);
+  await page.type("input[jsname='YPqjbf']", "passwd");
   await page.click("button[jscontroller='soHxf']");
   await page.addStyleTag({ content: "{scroll-behavior: auto !important;}" });
   sleep(6000);
@@ -38,24 +40,19 @@ function sleep(milliseconds) {
       // await page.waitForNavigation({ waitUntil: "domcontentloaded", timeout:20000});
       sleep(5000);
       await page.evaluate(()=>document.querySelectorAll("ytd-button-renderer")[4].click())
-      sleep(4000);
-      let token = await ac.solveRecaptchaV2Proxyless("https://www.youtube.com/c/TechBurner/about" , "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog")
-      .then(gresponse => {
-        // console.log('g-response: '+gresponse);
-        // console.log('google cookies:');
-        // console.log(ac.getCookies());
-        return gresponse
-      })
-      .catch(error => console.log('test received error '+error));
-      // await page.evaluate ((token)=>{
-      //   var element = document.getElementById('g-recaptcha-response');
-      //   element.value = token;
-      //   console.log(token);
-      // },token);
-      await page.$eval('#g-recaptcha-response', (element, token) =>{
-        element.value = token;
-      }, token);
-      sleep(4000);
+      sleep(2000);
+      const SolveCaptcha = async () => {
+        const captchaResponseKey = await client.decodeRecaptchaV2({
+          googlekey: "6Lf39AMTAAAAALPbLZdcrWDa8Ygmgk_fmGmrlRog",
+          pageurl: "https://www.youtube.com/c/"+channel[i]+"/about",
+        });
+        console.log(captchaResponseKey.text);
+      };
+
+      SolveCaptcha();
+
+
+      sleep(30000);
       await Promise.all([
         page.click("#submit-btn")
         // page.waitForNavigation({waitUntil:"networkidle0"})
